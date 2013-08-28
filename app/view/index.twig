@@ -1,0 +1,46 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+    <div class="container" id="content-conteiner">
+
+        {% if tags %}
+            <div class="row">
+                <div class="span9">
+                    <div class="well">
+<form id="tagline" method="post">
+                    <select tabindex="-1" style="width: 93%" multiple="" class="chosen-select" data-placeholder="Фильтр по тегам" name="tags[]">
+                        {% for tag in tags %}
+                            <option {% if tag.getTag() in selected_tags %} selected="selected" {% endif %} value="{{ tag.getTag() }}">{{ tag.getTag() }}</option>
+                        {% endfor%}
+                    </select>
+                        <a class="btn" id="tagline_submit" href="#"><i class="icon-search"></i></a>
+</form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="span9">
+                {% for row in items %}
+                    <div class="message well">
+                        <div class="row">
+                            <div class="span4">{{ row.getDate() }}</div>
+                            <div class="span8"></div>
+                        </div>
+                        <div class="row">
+                            <div class="span12">{{ row.getMessage() }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="span12">
+                            {% for tag in row.getTags() %}
+                                <a class="tag" href="#">#{{ tag }}</a>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+{% endblock %}
